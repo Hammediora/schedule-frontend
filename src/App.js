@@ -1,24 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Layout from './components/features/layout';
+import HomePage from './components/pages/landingPage';
+import EmployeePage from './components/pages/employeepage';
+import TaskPage from './components/pages/taskpage';
+import SchedulePage from './components/pages/schedulepage';
+import theme from './style/theme';
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/ProtectedRoutes';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Router>
+      <AuthProvider>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              {/* Protected routes for authenticated users only */}
+              <Route
+                path="/employees"
+                element={
+                  <ProtectedRoute>
+                    <EmployeePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/tasks"
+                element={
+                  <ProtectedRoute>
+                    <TaskPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/schedules"
+                element={
+                  <ProtectedRoute>
+                    <SchedulePage />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </Layout>
+       </AuthProvider>
+      </Router>
+    </ThemeProvider>
   );
 }
 
