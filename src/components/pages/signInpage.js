@@ -17,7 +17,7 @@ const Login = () => {
       setLoading(true);
       // Call the login function from AuthContext
       await login(emailRef.current.value, passwordRef.current.value);  // This will handle both Firebase login and backend token verification
-      window.location.href = '/dashboard';  // Redirect after successful login
+      window.location.href = '/dashboard';  
     } catch (error) {
       setError("Failed to log in. Please check your credentials.");
       console.error("Login error: ", error);
