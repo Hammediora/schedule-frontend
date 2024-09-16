@@ -11,15 +11,24 @@ const api = axios.create({
 
 // Function to get the Firebase ID token (and refresh it if needed)
 const getToken = async () => {
-  const auth = getAuth();  // Get the Firebase Auth instance
-  const currentUser = auth.currentUser;  // Get the current user
+  console.log('Requesting Firebase token...');
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
 
   if (currentUser) {
-    return currentUser.getIdToken(true);  // This will refresh the token if it's expired
+    try {
+      const token = await currentUser.getIdToken();
+      console.log('Token received:', token);
+      return token;
+    } catch (error) {
+      console.error('Error getting Firebase token:', error);
+      throw error;
+    }
+  } else {
+    console.error('No user is currently signed in.');
+    return null;
   }
-  return null;
 };
-
 // Axios request interceptor to add the Firebase ID token to the request headers
 api.interceptors.request.use(
   async (config) => {
@@ -34,7 +43,7 @@ api.interceptors.request.use(
 
 // API Calls for users
 export const getUsers = () => api.get('/users');  // Get all users (requires token)
-export const deleteUser = (id) => api.delete(`/users/${id}`);
+export const deleteUser = (id) => api.delete(`/users/${id}`);  // Delete a user by ID
 export const addUser = async (userData) => {
   const token = await getToken();
   return api.post('/users', userData, {
@@ -43,6 +52,22 @@ export const addUser = async (userData) => {
     },
   });
 };
+
+// Add employee (no email/password needed)
+export const addEmployee = async (employeeData) => {
+  const token = await getToken();  // Get the Firebase ID token of the current authenticated user
+  return api.post('/users/addEmployee', employeeData, {
+    headers: {
+      Authorization: `Bearer ${token}`,  // Pass the Firebase token to authorize the manager
+    },
+  });
+};
+
+// Get an employee by ID (view details)
+export const getEmployeeById = (id) => api.get(`/users/${id}`);  // Fetch a single employee's details by ID
+
+// Update an employee by ID (edit employee)
+export const updateEmployee = (id, updatedData) => api.put(`/users/${id}`, updatedData);
 
 // API Call for logging in user using Firebase token (verify on backend)
 export const loginUser = (token) => api.get('/users/login', {

@@ -1,9 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../services/FirebaseService";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
-import axios from 'axios'; 
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/api";
+import { loginUser } from "../services/api";  // API call to backend
 
 // Create the Auth Context
 const AuthContext = React.createContext();
@@ -13,20 +17,20 @@ export const useAuth = () => useContext(AuthContext);
 
 // AuthProvider Component
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [authError, setAuthError] = useState(""); // Handle authentication errors
-  const [userProfile, setUserProfile] = useState(null);
-  const navigate = useNavigate(); 
+  const [currentUser, setCurrentUser] = useState(null);  // Firebase current user
+  const [userProfile, setUserProfile] = useState(null);  // MongoDB user profile
+  const [loading, setLoading] = useState(true);          // Loading state for auth
+  const [authError, setAuthError] = useState("");        // Error handling for auth
+  const navigate = useNavigate();                        // Navigation hook
 
   // Sign-up function
   const signup = async (email, password) => {
     try {
-      setAuthError(""); 
-      return await createUserWithEmailAndPassword(auth, email, password);
+      setAuthError("");
+      await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      setAuthError(error.message); // Capture error
-      console.error("Signup error: ", error); // Log error for debugging
+      setAuthError(error.message);  // Capture error message
+      console.error("Signup error: ", error);
       throw error;
     }
   };
@@ -34,25 +38,22 @@ export const AuthProvider = ({ children }) => {
   // Login function
   const login = async (email, password) => {
     try {
-      setAuthError("");
-  
-      // Step 1: Authenticate the user using Firebase Authentication
+      setAuthError("");  // Reset auth error
+
+      // Firebase sign in
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const firebaseUser = userCredential.user;  // Get the Firebase user object
-  
-      // Step 2: Get the Firebase ID token
-      const token = await firebaseUser.getIdToken();  // Get the ID token from Firebase
-  
-      // Step 3: Send the Firebase ID token to the backend for validation
-      const response = await loginUser(token);  // Call the loginUser API function from api.js
-  
-      // Step 4: Store the user's profile from MongoDB (returned by the backend)
-      setUserProfile(response.data);  // Save the user profile in state
-  
-      return firebaseUser;  // Return Firebase user object if needed
-  
+      const firebaseUser = userCredential.user;
+
+      // Get Firebase ID token
+      const token = await firebaseUser.getIdToken();
+
+      // Fetch user profile from your backend (MongoDB) via API call
+      const response = await loginUser(token);
+      setUserProfile(response.data); 
+
+      return firebaseUser;
     } catch (error) {
-      setAuthError(error.message);  // Capture error
+      setAuthError(error.message); 
       console.error("Login error: ", error);
       throw error;
     }
@@ -61,69 +62,63 @@ export const AuthProvider = ({ children }) => {
   // Logout function
   const logout = async () => {
     try {
-      setAuthError("");
-      setUserProfile(null); 
-      await signOut(auth);  
-      navigate('/');  
+      setAuthError("");  
+      setUserProfile(null);  
+      await signOut(auth);   
+      navigate("/");         
     } catch (error) {
-      setAuthError(error.message); // Capture error
+      setAuthError(error.message);
       console.error("Logout error: ", error);
       throw error;
     }
   };
 
-  // Function to check if user is authenticated
-  const isAuthenticated = () => {
-    return currentUser !== null;  // Return true if there is a logged-in user
-  };
-
-  // Fetch user profile from your MongoDB API
-  const fetchUserProfile = async (firebaseUid) => {
-    try {
-      const token = await auth.currentUser.getIdToken();  // Get the current Firebase token
-      const response = await axios.get('http://localhost:5000/api/users', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      setUserProfile(response.data);  // Store user profile data from MongoDB
-    } catch (error) {
-      console.error("Failed to fetch user profile:", error);
-      setAuthError("Failed to fetch user profile.");
-    }
-  };
-
-  // Manage the current user using Firebase's onAuthStateChanged
+  // Firebase auth state change listener
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setCurrentUser(user);
-        await fetchUserProfile(user.uid);  // Fetch MongoDB profile once authenticated
+  
+        // Fetch profile only if it's not already set
+        if (!userProfile) {
+          try {
+            const token = await user.getIdToken();
+            const response = await loginUser(token);  
+            setUserProfile(response.data);  
+          } catch (error) {
+            setAuthError("Failed to fetch user profile.");
+            console.error("Profile fetch error: ", error);
+          }
+        }
       } else {
         setCurrentUser(null);
         setUserProfile(null);
       }
       setLoading(false);
     });
+  
+    return unsubscribe;
+  }, [userProfile]);
+  
 
-    return unsubscribe; // Clean up listener on unmount
-  }, []);
+  // Helper function to check if the user is authenticated
+  const isAuthenticated = () => currentUser !== null;
 
-  // AuthContext value
+  // Provide the context value to the rest of the app
   const value = {
-    currentUser,
-    userProfile,  // Add the MongoDB user profile
-    signup,
-    login,
-    logout,
-    isAuthenticated,  // Expose the isAuthenticated function
-    authError, // Expose error message in case any component needs it
+    currentUser,       
+    userProfile,     
+    signup,           
+    login,            
+    logout,           
+    isAuthenticated,   
+    authError,         
   };
 
+  // Render children only after loading the auth state
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children} {/* Render children only after checking auth state */}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

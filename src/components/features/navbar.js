@@ -50,7 +50,7 @@ const Navbar = ({ handleDrawerToggle }) => {
     const fetchNotifications = () => {
       // Simulate fetching notifications from an API
       setTimeout(() => {
-        setNotifications(3); // Example, can be replaced with real data
+        setNotifications(3); 
       }, 2000);
     };
     fetchNotifications();
