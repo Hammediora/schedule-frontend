@@ -107,7 +107,7 @@ const ClickableBox = styled(Box)({
   cursor: 'pointer',  
 });
 
-// Card with clean design and subtle hover animation
+// Card design
 const StyledCard = styled(Card)(({ theme }) => ({
   maxWidth: 720,
   marginBottom: theme.spacing(4),
@@ -123,7 +123,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
 // Button for edit/delete actions
 const ActionButton = styled(Button)(({ theme }) => ({
-    backgroundColor: '#83C5BE',  // Edit button color
+    backgroundColor: '#83C5BE',  
     color: '#000000',
     marginLeft: theme.spacing(1),
     borderRadius: '12px',
@@ -133,12 +133,12 @@ const ActionButton = styled(Button)(({ theme }) => ({
     fontSize: '0.875rem',
     fontWeight: 500,
     '&:hover': {
-      backgroundColor: '#2A9D8F',  // Darker teal on hover for edit
+      backgroundColor: '#2A9D8F', 
     },
     '&[color="error"]': {
-      backgroundColor: '#F67280',  // Soft coral for delete
+      backgroundColor: '#F67280',  
       '&:hover': {
-        backgroundColor: '#C06C84',  // Muted red on hover for delete
+        backgroundColor: '#C06C84',  
       },
     },
   }));
