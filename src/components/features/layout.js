@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const handleDrawerToggle = () => {
-    setCollapsed(!collapsed); // Toggle collapse state
+    setCollapsed(!collapsed); 
   };
 
   return (
@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
           sx={{
             flexGrow: 1,
             p: 3,
-            transition: 'margin 0.3s ease', // Smooth content shift
+            transition: 'margin 0.3s ease', 
           }}
         >
           {children}
