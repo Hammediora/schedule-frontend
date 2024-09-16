@@ -9,9 +9,9 @@ const EmployeePage = () => {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [openAddEditModal, setOpenAddEditModal] = useState(false); // Add/Edit User modal state
-  const [openViewModal, setOpenViewModal] = useState(false); // View Employee modal state
-  const [selectedEmployee, setSelectedEmployee] = useState(null); // State for selected employee
+  const [openAddEditModal, setOpenAddEditModal] = useState(false); 
+  const [openViewModal, setOpenViewModal] = useState(false); 
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   useEffect(() => {
     fetchEmployees();
@@ -38,33 +38,33 @@ const EmployeePage = () => {
   };
 
   const handleAddEmployee = () => {
-    setSelectedEmployee(null); // Clear selected employee for adding new employee
-    setOpenAddEditModal(true); // Open the Add/Edit UserForm modal
+    setSelectedEmployee(null); 
+    setOpenAddEditModal(true);
   };
 
   const handleEditEmployee = (employee) => {
-    setSelectedEmployee(employee); // Set the employee to be edited
-    setOpenAddEditModal(true); // Open the UserForm modal
+    setSelectedEmployee(employee);
+    setOpenAddEditModal(true); 
   };
 
   const handleViewEmployee = (employee) => {
-    setSelectedEmployee(employee); // Set the employee for viewing
-    setOpenViewModal(true); // Open the ViewEmployee modal
+    setSelectedEmployee(employee); 
+    setOpenViewModal(true); 
   };
 
   const handleCloseAddEditModal = () => {
-    setOpenAddEditModal(false); // Close the UserForm modal
-    setSelectedEmployee(null); // Clear selected employee after closing
+    setOpenAddEditModal(false); 
+    setSelectedEmployee(null); 
   };
 
   const handleCloseViewModal = () => {
-    setOpenViewModal(false); // Close the ViewEmployee modal
-    setSelectedEmployee(null); // Clear selected employee after closing
+    setOpenViewModal(false); 
+    setSelectedEmployee(null); 
   };
 
   const handleEmployeeAddedOrUpdated = () => {
-    fetchEmployees(); // Refresh the employee list after add/update
-    handleCloseAddEditModal(); // Close the modal
+    fetchEmployees(); 
+    handleCloseAddEditModal(); 
   };
 
   if (loading) {
@@ -94,8 +94,8 @@ const EmployeePage = () => {
 
       {/* Modal for adding or editing employee */}
       <Modal
-        open={openAddEditModal}  // Pass the open prop
-        onClose={handleCloseAddEditModal} // Close the modal
+        open={openAddEditModal}  
+        onClose={handleCloseAddEditModal} 
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{ timeout: 500 }}
@@ -126,8 +126,8 @@ const EmployeePage = () => {
 
       {/* Modal for viewing employee details */}
       <Modal
-        open={openViewModal}  // Fix: Pass the open prop for the View modal
-        onClose={handleCloseViewModal} // Close the modal
+        open={openViewModal}  
+        onClose={handleCloseViewModal} 
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{ timeout: 500 }}
@@ -163,7 +163,7 @@ const EmployeePage = () => {
                 employee={employee}
                 onDelete={handleDelete}
                 onEdit={() => handleEditEmployee(employee)}
-                onSelect={() => handleViewEmployee(employee)}  // Pass onSelect to handle viewing
+                onSelect={() => handleViewEmployee(employee)} 
               />
             </Grid>
           ))
