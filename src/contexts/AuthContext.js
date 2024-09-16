@@ -17,11 +17,11 @@ export const useAuth = () => useContext(AuthContext);
 
 // AuthProvider Component
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);  // Firebase current user
-  const [userProfile, setUserProfile] = useState(null);  // MongoDB user profile
-  const [loading, setLoading] = useState(true);          // Loading state for auth
-  const [authError, setAuthError] = useState("");        // Error handling for auth
-  const navigate = useNavigate();                        // Navigation hook
+  const [currentUser, setCurrentUser] = useState(null);  
+  const [userProfile, setUserProfile] = useState(null);  
+  const [loading, setLoading] = useState(true);         
+  const [authError, setAuthError] = useState("");        
+  const navigate = useNavigate();                       
 
   // Sign-up function
   const signup = async (email, password) => {
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
       setAuthError("");
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      setAuthError(error.message);  // Capture error message
+      setAuthError(error.message);  
       console.error("Signup error: ", error);
       throw error;
     }
@@ -38,19 +38,12 @@ export const AuthProvider = ({ children }) => {
   // Login function
   const login = async (email, password) => {
     try {
-      setAuthError("");  // Reset auth error
-
-      // Firebase sign in
+      setAuthError(""); 
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const firebaseUser = userCredential.user;
-
-      // Get Firebase ID token
       const token = await firebaseUser.getIdToken();
-
-      // Fetch user profile from your backend (MongoDB) via API call
       const response = await loginUser(token);
       setUserProfile(response.data); 
-
       return firebaseUser;
     } catch (error) {
       setAuthError(error.message); 
@@ -78,8 +71,6 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setCurrentUser(user);
-  
-        // Fetch profile only if it's not already set
         if (!userProfile) {
           try {
             const token = await user.getIdToken();
@@ -96,7 +87,6 @@ export const AuthProvider = ({ children }) => {
       }
       setLoading(false);
     });
-  
     return unsubscribe;
   }, [userProfile]);
   
