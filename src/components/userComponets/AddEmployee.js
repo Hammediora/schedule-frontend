@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Typography, MenuItem, Select, FormControl, InputLabel, Grid, Checkbox, FormControlLabel, Snackbar } from '@mui/material';
-import { addEmployee, updateEmployee } from '../../services/api';  // Both API functions for adding/updating employee
+import { addEmployee, updateEmployee } from '../../services/api';  
 
 const UserForm = ({ employee, onClose }) => {
   const [user, setUser] = useState({
@@ -209,6 +209,7 @@ const UserForm = ({ employee, onClose }) => {
         autoHideDuration={4000}
         onClose={handleSnackbarClose}
         message={snackbarMessage}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       />
     </Box>
   );
