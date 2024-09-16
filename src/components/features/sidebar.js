@@ -7,18 +7,18 @@ const drawerWidth = 240;
 
 const Sidebar = ({ collapsed }) => {
   const { currentUser } = useAuth();
-  const location = useLocation();  // Get current route to highlight active tab
+  const location = useLocation();  
 
   return currentUser ? (
     <Box
       sx={{
         width: collapsed ? 64 : drawerWidth,
-        transition: 'width 0.3s ease', // Smooth transition for expanding and collapsing
+        transition: 'width 0.3s ease',
         flexShrink: 0,
-        backgroundColor: '#f5f5f5', // Background color for sidebar
+        backgroundColor: '#f5f5f5',
         minHeight: '100vh',
         boxShadow: 3, 
-        overflow: 'hidden', // Ensure no overflow when collapsed
+        overflow: 'hidden', 
       }}
     >
       <Toolbar />
