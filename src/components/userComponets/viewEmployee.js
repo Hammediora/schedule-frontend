@@ -3,7 +3,7 @@ import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead
 
 // Helper function to format time to 12-hour AM/PM
 const formatTime = (time) => {
-  if (!time) return 'Off';  // If time is not provided, return "Off"
+  if (!time) return 'Off'; 
   const [hours, minutes] = time.split(':');
   const date = new Date();
   date.setHours(hours, minutes);
