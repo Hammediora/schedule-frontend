@@ -11,7 +11,7 @@ const formatTime = (time) => {
 };
 
 const ViewEmployee = ({ employee }) => {
-  if (!employee) return null;  // Return null if no employee is selected
+  if (!employee) return null;  
 
   // Provide a fallback for availability in case it's missing
   const availability = employee.availability || {
