@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { getAuth } from 'firebase/auth';  // Ensure Firebase auth is imported
+import { getAuth } from 'firebase/auth';
 
-// Base API URL
+// Base API URL from environment variables or fallback to localhost
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api'; 
 
 // Axios instance for API requests
@@ -29,10 +29,11 @@ const getToken = async () => {
     return null;
   }
 };
+
 // Axios request interceptor to add the Firebase ID token to the request headers
 api.interceptors.request.use(
   async (config) => {
-    const token = await getToken();  // Get the refreshed token
+    const token = await getToken();  
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -41,53 +42,31 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// API Calls for users
-export const getUsers = () => api.get('/users');  // Get all users (requires token)
-export const deleteUser = (id) => api.delete(`/users/${id}`);  // Delete a user by ID
-export const addUser = async (userData) => {
-  const token = await getToken();
-  return api.post('/users', userData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
-
-// Add employee (no email/password needed)
-export const addEmployee = async (employeeData) => {
-  const token = await getToken();  // Get the Firebase ID token of the current authenticated user
-  return api.post('/users/addEmployee', employeeData, {
-    headers: {
-      Authorization: `Bearer ${token}`,  // Pass the Firebase token to authorize the manager
-    },
-  });
-};
-
-// Get an employee by ID (view details)
-export const getEmployeeById = (id) => api.get(`/users/${id}`);  // Fetch a single employee's details by ID
-
-// Update an employee by ID (edit employee)
+// -------------------- User API Calls --------------------
+export const getEmployeeById = (id) => api.get(`/users/${id}`);
+export const deleteUser = (id) => api.delete(`/users/${id}`);
+export const getUsers = () => api.get('/users'); 
+export const addUser = (userData) => api.post('/users', userData); 
+export const addEmployee = (employeeData) => api.post('/users/addEmployee', employeeData);
 export const updateEmployee = (id, updatedData) => api.put(`/users/${id}`, updatedData);
-
-// API Call for logging in user using Firebase token (verify on backend)
+export const assignTasksToUser = (userId, taskIds) => api.post(`/users/${userId}/tasks`, { taskIds });
+export const getTasksForUser = (userId) => api.get(`/users/${userId}/tasks`);
 export const loginUser = (token) => api.get('/users/login', {
-  headers: {
-    Authorization: `Bearer ${token}`,  // Pass the Firebase token to the backend
-  },
+  headers: { Authorization: `Bearer ${token}` },  
 });
 
-// API Calls for tasks
-export const getTasks = () => api.get('/tasks');  // Get all tasks
-export const addTask = (taskData) => api.post('/tasks', taskData);  // Add a new task
+// -------------------- Task API Calls --------------------
+export const getTasks = () => api.get('/tasks');
+export const addTask = (taskData) => api.post('/tasks', taskData);
 
-// API Calls for schedules
-export const getSchedules = () => api.get('/schedules');  // Get all schedules
-export const addSchedule = (scheduleData) => api.post('/schedules', scheduleData);  // Add new schedule
-export const approveSchedule = (id) => api.put(`/schedules/${id}/approve`);  // Approve a schedule by ID
+// -------------------- Schedule API Calls --------------------
+export const getSchedules = () => api.get('/schedules');
+export const addSchedule = (scheduleData) => api.post('/schedules', scheduleData);
+export const approveSchedule = (id) => api.put(`/schedules/${id}/approve`);
 
-// API Calls for time-off requests
-export const getTimeOffRequests = () => api.get('/timeoff');  // Get all time-off requests
-export const addTimeOffRequest = (requestData) => api.post('/timeoff', requestData);  // Add new time-off request
-export const approveTimeOffRequest = (id) => api.put(`/timeoff/${id}/approve`);  // Approve time-off request by ID
+// -------------------- Time-Off Request API Calls --------------------
+export const getTimeOffRequests = () => api.get('/timeoff');
+export const addTimeOffRequest = (requestData) => api.post('/timeoff', requestData);
+export const approveTimeOffRequest = (id) => api.put(`/timeoff/${id}/approve`);
 
 export default api;

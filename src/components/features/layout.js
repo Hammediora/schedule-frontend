@@ -28,7 +28,8 @@ const Layout = ({ children }) => {
           sx={{
             flexGrow: 1,
             p: 3,
-            transition: 'margin 0.3s ease', // Smooth content shift
+            paddingTop: '64px',
+            transition: 'margin 0.3s ease', 
           }}
         >
           {children}
