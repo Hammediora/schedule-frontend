@@ -3,7 +3,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { TextField, Button, Box, Typography, Container, IconButton, InputAdornment } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import api from "../../services/api";  // Import the API service for Axios
+import api from "../../services/api";
 
 const SignUp = () => {
   const nameRef = useRef();  // Reference for the name input
@@ -27,25 +27,25 @@ const SignUp = () => {
       setError("");
       setLoading(true);
 
-      // Step 1: Sign up the user using Firebase Auth
+      //  Sign up the user using Firebase Auth
       const userCredential = await signup(emailRef.current.value, passwordRef.current.value);
-      const firebaseUser = userCredential.user;  // Get the Firebase user object
+      const firebaseUser = userCredential.user; 
 
-      // Step 2: Send user data to the backend API to save in your database
+      //  Send user data to the backend API to save in your database
       await api.post('/users', {   // Use relative path with Axios instance
         firebaseUid: firebaseUser.uid,
         email: firebaseUser.email,
-        name: nameRef.current.value,  // Send name to the backend
+        name: nameRef.current.value, 
       });
 
-      // Step 3: Optionally, redirect the user after signing up
-      window.location.href = '/dashboard';  // Redirect to dashboard
+      // redirect the user after signing up
+      window.location.href = '/dashboard';  
     } catch (error) {
       // Firebase or backend error handling
       if (error.response && error.response.data.message) {
-        setError(error.response.data.message);  // Backend error
+        setError(error.response.data.message);  
       } else {
-        setError("Failed to create an account. Please try again.");  // General error
+        setError("Failed to create an account. Please try again."); 
       }
       console.error("Error during signup: ", error);
     } finally {

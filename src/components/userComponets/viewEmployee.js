@@ -3,7 +3,7 @@ import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead
 
 // Helper function to format time to 12-hour AM/PM
 const formatTime = (time) => {
-  if (!time) return 'Off';  // If time is not provided, return "Off"
+  if (!time) return 'Off'; 
   const [hours, minutes] = time.split(':');
   const date = new Date();
   date.setHours(hours, minutes);
@@ -24,7 +24,7 @@ const getTaskColor = (taskName) => {
 };
 
 const ViewEmployee = ({ employee }) => {
-  if (!employee) return null;  // Return null if no employee is selected
+  if (!employee) return null;  
 
   // Provide a fallback for availability in case it's missing
   const availability = employee.availability || {

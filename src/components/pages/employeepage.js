@@ -100,6 +100,8 @@ const EmployeePage = () => {
   const handleViewEmployee = (employee) => {
     setSelectedEmployee(employee); 
     setOpenViewModal(true); 
+    setSelectedEmployee(employee); 
+    setOpenViewModal(true); 
   };
 
   const handleCloseAddEditModal = () => {
@@ -118,9 +120,13 @@ const EmployeePage = () => {
   const handleCloseViewModal = () => {
     setOpenViewModal(false); 
     setSelectedEmployee(null); 
+    setOpenViewModal(false); 
+    setSelectedEmployee(null); 
   };
 
   const handleEmployeeAddedOrUpdated = () => {
+    fetchEmployees(); 
+    handleCloseAddEditModal(); 
     fetchEmployees(); 
     handleCloseAddEditModal(); 
   };

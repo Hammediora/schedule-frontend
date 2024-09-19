@@ -137,7 +137,7 @@ const ClickableBox = styled(Box)({
   cursor: 'pointer',
 });
 
-// Card with clean design and subtle hover animation
+// Card design
 const StyledCard = styled(Card)(({ theme }) => ({
   maxWidth: 720,
   marginBottom: theme.spacing(4),

@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const handleDrawerToggle = () => {
-    setCollapsed(!collapsed); // Toggle collapse state
+    setCollapsed(!collapsed); 
   };
 
   return (
