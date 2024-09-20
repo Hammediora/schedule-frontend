@@ -23,7 +23,6 @@ const TaskList = () => {
           <ListItem key={task._id}>
             <ListItemText
               primary={task.task_name}
-              secondary={`Priority: ${task.priority} - Deadline: ${task.deadline}`}
             />
           </ListItem>
         ))}

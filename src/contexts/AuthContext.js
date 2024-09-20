@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/api";  // API call to backend
+import { loginUser } from "../services/api"; 
 
 // Create the Auth Context
 const AuthContext = React.createContext();
