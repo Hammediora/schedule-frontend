@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getUsers, deleteUser, getTasks, assignTasksToUser } from '../../services/api'; // Import task and user-related APIs
+import { getUsers, deleteUser, getTasks, assignTasksToUser } from '../../services/api';
 import EmployeeCard from '../userComponets/employeeCard';
 import { Box, Typography, Grid, CircularProgress, Alert, Button, Modal, Fade, Backdrop } from '@mui/material';
 import UserForm from '../userComponets/RegisterEmployee/AddEmployee';
@@ -39,7 +39,7 @@ const EmployeePage = () => {
   const fetchTasks = async () => {
     try {
       const response = await getTasks(); // Fetch tasks from the backend
-      setTasks(response.data); // Store tasks
+      setTasks(response.data); 
     } catch (error) {
       setError('Failed to load tasks.');
     }

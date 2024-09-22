@@ -5,11 +5,11 @@ import {
 } from '@mui/material';
 import { ChevronLeft as ChevronLeftIcon  } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useAuth } from '../../contexts/AuthContext';  // Updated: useAuth now has MongoDB profile data
+import { useAuth } from '../../contexts/AuthContext'; 
 import { styled } from '@mui/material/styles';
 
 const Navbar = ({ handleDrawerToggle }) => {
-  const { currentUser, userProfile, logout, authError, isAuthenticated } = useAuth();  // Use isAuthenticated from useAuth()
+  const { currentUser, userProfile, logout, authError, isAuthenticated } = useAuth(); 
   const [anchorEl, setAnchorEl] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [loadingLogout, setLoadingLogout] = useState(false);

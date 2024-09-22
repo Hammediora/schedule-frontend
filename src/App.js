@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from './components/features/layout';
 import HomePage from './components/pages/landingPage';
 import EmployeePage from './components/pages/employeepage';
-import TaskPage from './components/pages/taskpage';
 import SchedulePage from './components/pages/schedulepage';
 import theme from './style/theme';
 import { AuthProvider } from './contexts/AuthContext';
@@ -24,14 +23,6 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <EmployeePage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/tasks"
-                element={
-                  <ProtectedRoute>
-                    <TaskPage />
                   </ProtectedRoute>
                 }
               />
