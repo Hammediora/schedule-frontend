@@ -120,7 +120,7 @@ const WeeklyScheduleTable = ({ schedules, fetchSchedules, weekStart }) => {
     <>
       <TableContainer 
         component={Paper} 
-        sx={{ boxShadow: 3, width: '100%', maxHeight: 700, overflow: 'auto' }} // Added maxHeight and overflow for sticky header
+        sx={{ boxShadow: 3, width: '100%', maxHeight: 700, overflow: 'auto' }} 
       >
         <Table stickyHeader aria-label="Weekly Schedule">
           <TableHead>

@@ -1,5 +1,3 @@
-// components/ScheduleComponent/shiftHelpers.js
-
 // Helper function to format shift time and indicate AM/PM
 export const formatShiftTime = (startTime, endTime) => {
     const formatTime = (time) => {

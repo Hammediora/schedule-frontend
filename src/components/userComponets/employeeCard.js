@@ -29,7 +29,7 @@ const EmployeeCard = ({ employee, onEdit, onDelete, onSelect }) => {
   const avatarSrc = employee.profilePicture || '';
   const bgColor = avatarSrc ? 'transparent' : getAvatarColor(employee.name);
   
-  const tasks = employee.assignedTasks || [];  // Get tasks assigned to the employee
+  const tasks = employee.assignedTasks || [];  
 
   // Display a limited number of tasks (first 3), with "+X more" if there are additional tasks
   const displayedTasks = tasks.slice(0, 3);
@@ -67,12 +67,12 @@ const EmployeeCard = ({ employee, onEdit, onDelete, onSelect }) => {
                     <Chip
                       label={task.task_name}
                       sx={{
-                        maxWidth: '120px', // Limit the chip width
+                        maxWidth: '120px', 
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',
-                        textOverflow: 'ellipsis',  // Truncate long text
-                        backgroundColor: getTaskColor(task.task_name),  // Apply task-based color
-                        color: '#333',  // Text color
+                        textOverflow: 'ellipsis',  
+                        backgroundColor: getTaskColor(task.task_name), 
+                        color: '#333',  
                       }}
                     />
                   </Tooltip>
@@ -103,7 +103,7 @@ const EmployeeCard = ({ employee, onEdit, onDelete, onSelect }) => {
                 sx={{
                   height: 96,
                   width: 96,
-                  backgroundColor: bgColor,  // Use avatar-specific colors
+                  backgroundColor: bgColor, 
                   color: '#fff',
                   fontSize: '1.5rem',
                 }}
@@ -163,12 +163,12 @@ const ActionButton = styled(Button)(({ theme }) => ({
   fontSize: '0.875rem',
   fontWeight: 500,
   '&:hover': {
-    backgroundColor: '#2A9D8F',  // Darker teal on hover for edit
+    backgroundColor: '#2A9D8F',  
   },
   '&[color="error"]': {
-    backgroundColor: '#F67280',  // Soft coral for delete
+    backgroundColor: '#F67280', 
     '&:hover': {
-      backgroundColor: '#C06C84',  // Muted red on hover for delete
+      backgroundColor: '#C06C84',  
     },
   },
 }));

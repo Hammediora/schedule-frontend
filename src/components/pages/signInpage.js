@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
-import { useAuth } from "../../contexts/AuthContext";  // Import useAuth from your AuthContext
+import { useAuth } from "../../contexts/AuthContext";  
 import { TextField, Button, Box, Typography, Container } from '@mui/material';
 
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login, authError } = useAuth();  // Use the login method from AuthContext
+  const { login, authError } = useAuth(); 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -15,8 +15,8 @@ const Login = () => {
     
     try {
       setLoading(true);
-      // Call the login function from AuthContext
-      await login(emailRef.current.value, passwordRef.current.value);  // This will handle both Firebase login and backend token verification
+      // Call the login function from AuthContext handlles both Firebase login and backend token verification
+      await login(emailRef.current.value, passwordRef.current.value); 
       window.location.href = '/dashboard';  
     } catch (error) {
       setError("Failed to log in. Please check your credentials.");
@@ -45,7 +45,7 @@ const Login = () => {
         Sign In
       </Typography>
       {error && <Typography color="error" sx={{ mb: 2 }}>{error}</Typography>}
-      {authError && <Typography color="error" sx={{ mb: 2 }}>{authError}</Typography>}  {/* Show Firebase Auth Errors */}
+      {authError && <Typography color="error" sx={{ mb: 2 }}>{authError}</Typography>}  
       <Box component="form" onSubmit={handleLogin} sx={{ width: '100%' }}>
         <TextField
           variant="outlined"

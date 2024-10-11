@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Grid, TextField, Button, Typography } from '@mui/material';
 
 const SalesInputForm = ({ salesData, handleSalesInputChange, handleGenerateSchedules }) => {
-  const isFormValid = Object.values(salesData).every(value => value !== ''); // Ensure all fields are filled
+  const isFormValid = Object.values(salesData).every(value => value !== ''); 
 
   return (
     <Box sx={{ marginBottom: 3 }}>
@@ -19,7 +19,7 @@ const SalesInputForm = ({ salesData, handleSalesInputChange, handleGenerateSched
               value={salesData[day]}
               onChange={(e) => handleSalesInputChange(day, e.target.value)}
               fullWidth
-              InputProps={{ inputProps: { min: 0 } }} // Prevent negative sales input
+              InputProps={{ inputProps: { min: 0 } }} 
               InputLabelProps={{ shrink: true }}
               required
             />
@@ -31,7 +31,7 @@ const SalesInputForm = ({ salesData, handleSalesInputChange, handleGenerateSched
         color="primary"
         sx={{ marginTop: 2 }}
         onClick={handleGenerateSchedules}
-        disabled={!isFormValid} // Disable button if form is incomplete
+        disabled={!isFormValid} 
       >
         Generate Weekly Schedule
       </Button>

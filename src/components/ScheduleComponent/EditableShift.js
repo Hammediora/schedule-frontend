@@ -1,5 +1,3 @@
-// components/ScheduleComponent/EditableShift.js
-
 import React, { useState } from 'react';
 import { Box, TextField, IconButton, Typography } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
@@ -24,7 +22,6 @@ const EditableShift = ({ userId, day, shiftData, handleShiftChange, handleSave }
 
   return (
     <Box>
-      {/* Editable TextField for shift time */}
       {editMode ? (
         <>
           <TextField
@@ -39,7 +36,6 @@ const EditableShift = ({ userId, day, shiftData, handleShiftChange, handleSave }
         </>
       ) : (
         <Box onClick={handleEditClick}>
-          {/* Show shift time and task */}
           <Typography variant="body2">{shiftData.formattedTime}</Typography>
           <Typography variant="caption">{shiftData.task}</Typography>
         </Box>

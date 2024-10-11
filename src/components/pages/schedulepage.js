@@ -6,7 +6,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import SalesInputForm from '../ScheduleComponent/SalesInputForm';
 import WeeklyScheduleTable from '../ScheduleComponent/WeeklyScheduleTable';
 import { getWeeklySchedules, generateWeeklySchedules } from '../../services/api';
-import { formatISO, startOfWeek, } from 'date-fns'; // Additional imports for date functions
+import { formatISO, startOfWeek, } from 'date-fns'; 
 
 const SchedulePage = () => {
   const [schedules, setSchedules] = useState([]);
@@ -22,7 +22,6 @@ const SchedulePage = () => {
     sunday: '',
   });
 
-  // Start of the current week (Monday)
   const [weekStart, setWeekStart] = useState(startOfWeek(new Date(), { weekStartsOn: 1 }));
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -75,7 +74,6 @@ const SchedulePage = () => {
     setError(''); 
   };
 
-  // Loading state
   if (loading) {
     return <CircularProgress />;
   }

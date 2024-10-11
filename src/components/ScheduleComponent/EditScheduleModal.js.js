@@ -1,4 +1,3 @@
-// components/EditScheduleModal.js
 import React from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Typography } from '@mui/material';
 
@@ -19,7 +18,7 @@ const EditScheduleModal = ({ editDialogOpen, handleClose, editSchedule, handleEd
         <TextField
           label="Start Time"
           type="time"
-          value={shiftStartTime} // Use fallback value
+          value={shiftStartTime} 
           onChange={(e) => handleEditFieldChange('shift.start_time', e.target.value)}
           fullWidth
           sx={{ marginBottom: 2 }}
@@ -28,7 +27,7 @@ const EditScheduleModal = ({ editDialogOpen, handleClose, editSchedule, handleEd
         <TextField
           label="End Time"
           type="time"
-          value={shiftEndTime} // Use fallback value
+          value={shiftEndTime} 
           onChange={(e) => handleEditFieldChange('shift.end_time', e.target.value)}
           fullWidth
           sx={{ marginBottom: 2 }}
@@ -36,7 +35,7 @@ const EditScheduleModal = ({ editDialogOpen, handleClose, editSchedule, handleEd
         />
         <TextField
           label="Task"
-          value={taskName} // Use fallback value
+          value={taskName} 
           onChange={(e) => handleEditFieldChange('task', { task_name: e.target.value })}
           fullWidth
           sx={{ marginBottom: 2 }}
