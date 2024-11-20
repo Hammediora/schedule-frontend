@@ -1,20 +1,20 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDm0d0lHZCqvBm0qutWbpJjPKZzhtr4Z8s",
-  authDomain: "scheduleapp-12e02.firebaseapp.com",
-  databaseURL: "https://scheduleapp-12e02-default-rtdb.firebaseio.com",
-  projectId: "scheduleapp-12e02",
-  storageBucket: "scheduleapp-12e02.appspot.com",
-  messagingSenderId: "124864009420",
-  appId: "1:124864009420:web:93e48411660ff199d71e69",
-  measurementId: "G-GGNFNSJB02"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 // Export Firebase Authentication
-export const auth = getAuth(app)
+export const auth = getAuth(app);
