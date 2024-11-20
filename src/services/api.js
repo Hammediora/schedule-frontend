@@ -60,9 +60,13 @@ export const getTasks = () => api.get('/tasks');
 export const addTask = (taskData) => api.post('/tasks', taskData);
 
 // -------------------- Schedule API Calls --------------------
-export const getSchedules = () => api.get('/schedules');
-export const addSchedule = (scheduleData) => api.post('/schedules', scheduleData);
-export const approveSchedule = (id) => api.put(`/schedules/${id}/approve`);
+
+
+export const getWeeklySchedules = (weekStart) => api.get(`/schedules`, { params: { weekStart } });
+export const generateWeeklySchedules = (salesData) => api.post('/schedules/generate-weekly', salesData);
+export const createSchedule = (scheduleData) => api.post('/schedules', scheduleData);
+export const updateSchedule = (scheduleId, scheduleData) => api.put(`/schedules/${scheduleId}`, scheduleData);
+export const deleteSchedule = (scheduleId) => api.delete(`/schedules/${scheduleId}`);
 
 // -------------------- Time-Off Request API Calls --------------------
 export const getTimeOffRequests = () => api.get('/timeoff');

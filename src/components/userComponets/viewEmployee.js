@@ -26,7 +26,7 @@ const getTaskColor = (taskName) => {
 const ViewEmployee = ({ employee }) => {
   if (!employee) return null;  
 
-  // Provide a fallback for availability in case it's missing
+  // fallback for availability in case it's missing
   const availability = employee.availability || {
     monday: { start: '', end: '' },
     tuesday: { start: '', end: '' },

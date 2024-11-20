@@ -1,5 +1,5 @@
 import { Box, Toolbar, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { People as PeopleIcon, CalendarToday as CalendarTodayIcon, Assignment as AssignmentIcon, Dashboard as DashboardIcon } from '@mui/icons-material';
+import { People as PeopleIcon, CalendarToday as CalendarTodayIcon, Dashboard as DashboardIcon } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -51,20 +51,6 @@ const Sidebar = ({ collapsed }) => {
             <PeopleIcon color={location.pathname === '/employees' ? 'primary' : 'inherit'} />
           </ListItemIcon>
           {!collapsed && <ListItemText primary="Employees" />}
-        </ListItem>
-
-        {/* Tasks Tab */}
-        <ListItem
-          button
-          component={Link}
-          to="/tasks"
-          selected={location.pathname === '/tasks'}
-          sx={{ justifyContent: collapsed ? 'center' : 'initial', padding: '16px' }}
-        >
-          <ListItemIcon sx={{ justifyContent: 'center', minWidth: 0, mr: collapsed ? 0 : 2 }}>
-            <AssignmentIcon color={location.pathname === '/tasks' ? 'primary' : 'inherit'} />
-          </ListItemIcon>
-          {!collapsed && <ListItemText primary="Tasks" />}
         </ListItem>
 
         {/* Schedules Tab */}

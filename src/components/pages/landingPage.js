@@ -28,7 +28,7 @@ const HomePage = () => {
 
       {!currentUser ? (
         <>
-          {/* Conditionally render either the Sign Up or Sign In form */}
+          {/* Conditionally render Sign Up or Sign In form */}
           {showSignUp ? <SignUp /> : <SignIn />}
 
           <Box sx={{ mt: 3, minHeight: '50vh', padding: { xs: 2, md: 4 }, }}>

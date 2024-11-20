@@ -7,9 +7,9 @@ const Footer = () => {
     <Box
       component="footer"
       sx={{
-        py: 1, // Reduced padding to make it more compact
+        py: 1, 
         textAlign: 'center',
-        height: 'auto', // You can control the height based on content, or set a fixed height like '50px'
+        height: 'auto',
         backgroundColor: '#451400',
         color: '#FFFFFF',
       }}

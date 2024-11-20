@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getUsers, deleteUser, getTasks, assignTasksToUser } from '../../services/api'; // Import task and user-related APIs
+import { getUsers, deleteUser, getTasks, assignTasksToUser } from '../../services/api';
 import EmployeeCard from '../userComponets/employeeCard';
 import { Box, Typography, Grid, CircularProgress, Alert, Button, Modal, Fade, Backdrop } from '@mui/material';
 import UserForm from '../userComponets/RegisterEmployee/AddEmployee';
@@ -21,14 +21,14 @@ const EmployeePage = () => {
   // Fetch employees and tasks when the component mounts
   useEffect(() => {
     fetchEmployees();
-    fetchTasks(); // Fetch tasks (stations) on page load
+    fetchTasks(); 
   }, []);
 
   const fetchEmployees = async () => {
     try {
       const response = await getUsers();
       setEmployees(response.data);
-      setFilteredEmployees(response.data);  // Initialize filtered employees with the full list
+      setFilteredEmployees(response.data); 
     } catch (error) {
       setError('Failed to load employees.');
     } finally {
@@ -38,8 +38,8 @@ const EmployeePage = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await getTasks(); // Fetch tasks from the backend
-      setTasks(response.data); // Store tasks
+      const response = await getTasks(); 
+      setTasks(response.data); 
     } catch (error) {
       setError('Failed to load tasks.');
     }
@@ -50,7 +50,7 @@ const EmployeePage = () => {
       await deleteUser(id);
       const updatedEmployees = employees.filter((employee) => employee._id !== id);
       setEmployees(updatedEmployees);
-      setFilteredEmployees(updatedEmployees);  // Update filtered employees after deletion
+      setFilteredEmployees(updatedEmployees); 
     } catch (error) {
       setError('Failed to delete employee.');
     }
@@ -58,7 +58,7 @@ const EmployeePage = () => {
 
   const handleAssignTask = async (employee, taskId) => {
     try {
-      await assignTasksToUser(employee._id, [taskId]); // Assign the task using API
+      await assignTasksToUser(employee._id, [taskId]);
     } catch (error) {
       console.error('Failed to assign task:', error);
     }

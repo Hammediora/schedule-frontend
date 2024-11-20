@@ -13,7 +13,7 @@ const TaskModal = ({ open, onClose, onTaskAdded }) => {
       setError('Task name is required');
       return;
     }
-    setIsSubmitting(true); // Disable the button
+    setIsSubmitting(true); 
     try {
       await addTask({ task_name: taskName, description });
       onTaskAdded();
@@ -23,7 +23,7 @@ const TaskModal = ({ open, onClose, onTaskAdded }) => {
     } catch (err) {
       setError('Failed to add task');
     } finally {
-      setIsSubmitting(false); // Re-enable the button after submission
+      setIsSubmitting(false); 
     }
   };
 

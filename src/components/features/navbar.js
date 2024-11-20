@@ -5,11 +5,11 @@ import {
 } from '@mui/material';
 import { ChevronLeft as ChevronLeftIcon  } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useAuth } from '../../contexts/AuthContext';  // Updated: useAuth now has MongoDB profile data
+import { useAuth } from '../../contexts/AuthContext'; 
 import { styled } from '@mui/material/styles';
 
 const Navbar = ({ handleDrawerToggle }) => {
-  const { currentUser, userProfile, logout, authError, isAuthenticated } = useAuth();  // Use isAuthenticated from useAuth()
+  const { currentUser, userProfile, logout, authError, isAuthenticated } = useAuth(); 
   const [anchorEl, setAnchorEl] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [loadingLogout, setLoadingLogout] = useState(false);
@@ -34,7 +34,7 @@ const Navbar = ({ handleDrawerToggle }) => {
     handleMenuClose();
   };
 
-  // Helper function to get user initials for avatar
+  // get user initials for avatar
   const getUserInitials = () => {
     if (userProfile?.name) {
       const nameParts = userProfile.name.split(' ');
@@ -48,7 +48,6 @@ const Navbar = ({ handleDrawerToggle }) => {
 
   useEffect(() => {
     const fetchNotifications = () => {
-      // Simulate fetching notifications from an API
       setTimeout(() => {
         setNotifications(3); 
       }, 2000);
@@ -56,7 +55,7 @@ const Navbar = ({ handleDrawerToggle }) => {
     fetchNotifications();
   }, []);
 
-  // Styled modal for account info
+
   const StyledModal = styled(Modal)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -66,13 +65,12 @@ const Navbar = ({ handleDrawerToggle }) => {
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>
-        {/* Conditionally show the mobile menu button (hamburger icon) only if the user is authenticated */}
-        {isAuthenticated() && (  // Check if the user is authenticated before rendering the menu
+        {isAuthenticated() && ( 
           <IconButton
             edge="start"
             color="inherit"
             aria-label="menu"
-            onClick={handleDrawerToggle} // Toggle the sidebar when clicked
+            onClick={handleDrawerToggle} 
             sx={{ mr: 2 }}
           >
             {handleDrawerToggle ? <MenuIcon /> : <ChevronLeftIcon />}
@@ -83,7 +81,7 @@ const Navbar = ({ handleDrawerToggle }) => {
           Employee Scheduling App
         </Typography>
 
-        {isAuthenticated() && currentUser && userProfile && ( // Ensure both Firebase user and MongoDB profile are loaded
+        {isAuthenticated() && currentUser && userProfile && ( 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Tooltip title="Account Settings" arrow>
               <IconButton
@@ -118,7 +116,7 @@ const Navbar = ({ handleDrawerToggle }) => {
             >
               <MenuItem disabled>
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  {userProfile.name || currentUser.email} {/* Show name from MongoDB profile or email */}
+                  {userProfile.name || currentUser.email} 
                 </Typography>
               </MenuItem>
               <MenuItem onClick={() => { handleMenuClose(); setOpenModal(true); }}>
